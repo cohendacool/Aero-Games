@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Aero Games</title>
+        
+        <!-- CSS -->  
+        <link rel="stylesheet" href="style.css">
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
+    </head>
+        
+    <body>
+        <!-- JavaScript -->
+        <script src="script.js" defer></script>
+
+        <!-- Menu -->
+        <section class="page active" id="menu">
+            <h1 class="chango-regular">Aero Games</h1>
+
+            <div class="menu-panel">
+                <button onclick="swapPage('games')">Games</button>
+                <button onclick="swapPage('apps')">Apps</button>
+            </div>
+        </section>
+
+        <!-- Games -->
+        <section class="page" id="games">
+            <div class="content-panel">
+                <!-- FNAF 1 -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clFNAF.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/fnaf1.jpg">
+                    </div>
+                </button>
+
+                <!-- FNAF 2 -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clFNAF2.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/fnaf2.jpg">
+                    </div>
+                </button>
+
+                <!-- FNAF 3 -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clFNAF3.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/fnaf3.webp">
+                    </div>
+                </button>
+
+                <!-- FNAF 4 -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clFNAF4.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/fnaf4.jpg">
+                    </div>
+                </button>
+
+                <!-- FNAF SL -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clfnafsl.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/fnafsl.jpg">
+                    </div>
+                </button>
+
+                <!-- FNAF PS -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clfnafps.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/fnafps.webp">
+                    </div>
+                </button>
+
+                <!-- FNAF UCN -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clfnafucn.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/fnafucn.webp">
+                    </div>
+                </button>
+
+                <!-- Geometry Dash -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clgdlite.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/geometrydash.png">
+                    </div>
+                </button>
+
+                <!-- Cookie Clicker -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clcookieclicker.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/cookieclicker.jpg">
+                    </div>
+                </button>
+
+                <!-- Brotato -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clbrotato.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/brotato.webp">
+                    </div>
+                </button>
+
+                <!-- Ages of Conflict -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clagesofconflict.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/agesofconflict.webp">
+                    </div>
+                </button>
+
+                <!-- Granny -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clgrannyy.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/granny.webp">
+                    </div>
+                </button>
+
+                <!-- Bad Time Sim -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clbadtimesim.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/badtimesim.webp">
+                    </div>
+                </button>
+
+                <!-- Undertale Yellow -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clundertaleyellow.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/undertaleyellow.webp">
+                    </div>
+                </button>
+
+                <!-- Deltarune -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/cldeltarune.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/deltarune.webp">
+                    </div>
+                </button>
+
+                <!-- Gorilla Tag -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clgorillatag.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/gtag.webp">
+                    </div>
+                </button>
+
+                <!-- Basket Random -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clbasketrandom.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/basketrandom.webp">
+                    </div>
+                </button>
+
+                <!-- Soccer Random -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clsoccerrandom.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/soccerrandom.png">
+                    </div>
+                </button>
+
+                <!-- Boxing Random -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clboxingrandom.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/boxingrandom.webp">
+                    </div>
+                </button>
+
+                <!-- Crazy Cattle 3D -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/games/clcrazycattle3d.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/games/crazycattle3d.png">
+                    </div>
+                </button>
+            </div>
+
+            <button onclick="swapPage('menu')">Back</button>
+        </section>
+
+        <!-- Apps -->
+        <section class="page" id="apps">
+            <div class="content-panel">
+                <!-- Emulator JS -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/apps/emujs.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/apps/emulatorjs.webp">
+                    </div>
+                </button>
+
+                <!-- Soundboard -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/apps/soundboard.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/apps/soundboard.webp">
+                    </div>
+                </button>
+
+                <!-- 30 Dollar Website -->
+                <button class="gamebutton" onclick="allowMusic(false); openGame('assets/apps/dontyoulectureme.html')">
+                    <div class="icon-wrapper">
+                        <img class="gameicon" src="assets/sprites/apps/thirtydollarwebsite.webp">
+                    </div>
+                </button>
+            </div>
+
+            <button onclick="swapPage('menu')">Back</button>
+        </section>
+
+        <!-- Game/App View -->
+         <section class="page" id="view">
+            <div class="panel">
+                <iframe id="gameappframe" src="https://google.com"></iframe>
+            </div>
+
+            <button onclick="closeView()">Back</button>
+            <button onclick="toggleFullscreen()">Fullscreen</button>
+         </section>
+
+        <!-- Other Stuff -->
+        <audio id="music">
+            <source id="musicsource" src="assets/audio/aquatic-ambience.mp3" type="audio/mpeg">
+            Your browser doesn't support audio.
+        </audio>
+
+        <div id="nowplaying"><h2>Now Playing: [SONG-NAME]</h2></div>
+    </body>
+</html>
