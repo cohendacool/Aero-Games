@@ -1,0 +1,903 @@
+/* Variables */
+:root {
+    --background: linear-gradient(to top left, rgb(0, 89, 255), rgb(45, 160, 255));
+    --panel: linear-gradient(to bottom,rgba(255, 255, 255, 0.4) 0%,rgba(0, 200, 255, 0.65) 40%,rgba(0, 150, 255, 0.7) 100%);
+    --button: linear-gradient(to bottom,rgba(255, 255, 255, 0.4) 0%,rgba(0, 200, 255, 0.65) 40%,rgba(0, 150, 255, 0.7) 100%);
+    --title: linear-gradient(to bottom,#ffffff 0%,#bdf6ff 40%,#00c8ff 60%,#008cff 100%);
+    --text: rgb(0, 150, 255);
+    --stroke: rgb(0, 100, 255);
+}
+
+/* Tags */
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: var(--background);
+
+    z-index: -1;
+}
+
+p, h1, h2, h3, h4, h5 {
+    font-family: cursive;
+    color: blue;
+    font-weight: 900;
+
+    text-align: center;
+}
+
+h1, h2, p {
+    animation: float 6s ease-in-out infinite;
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+
+    font-weight: bold;
+
+    background: var(--title);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px var(--stroke);
+}
+
+h2 {
+    font-size: 40px;
+    text-align: center;
+
+    font-weight: bold;
+
+    background: var(--title);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px var(--stroke);
+}
+
+button {
+    background: var(--button);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.2);
+
+    border-radius: 25px;
+
+    font-size: 35px;
+    font-family: cursive;
+    font-weight: bold;
+
+    font-family: "Chango", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    color: var(--text);
+    -webkit-text-stroke: 3px var(--stroke);
+
+    transition: transform 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+select {
+    background: var(--button);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.2);
+
+    border-radius: 25px;
+
+    font-size: 15px;
+    font-family: cursive;
+    font-weight: bold;
+
+    width: 100px;
+}
+
+/* IDs */
+#nowplaying {
+    background-color: rgba(15, 15, 15, 0.5);
+    backdrop-filter: blur(10px);
+
+    position: fixed;
+    right: 5px;
+    top: 5px;
+
+    padding: 10px 20px;
+    border-radius: 15px;
+
+    transform: translate(0, -120%);
+    transition: transform 0.5s ease;
+}
+
+#bubbles {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+}
+
+#nowplaying h2 {
+    color: white;
+    margin: 0;
+}
+
+#nowplaying.show {
+    transform: translate(0, 0);
+}
+
+#hovername {
+    position: fixed;
+    padding: 12px 24px;
+    border-radius: 20px;
+    background: var(--button);
+    backdrop-filter: blur(10px);
+    box-shadow:
+        inset 0 2px 10px rgba(255,255,255,.5),
+        0 10px 25px rgba(0,0,0,.2);
+    font-family: "Chango", sans-serif;
+    font-size: 20px;
+    opacity: 0;
+    transform: translate(-50%, 10px);
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 100;
+}
+
+#hovername.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+#gameappframe {
+    height: 95%;
+    width: 97.5%;
+
+    border: none;
+    border-radius: 20px;
+}
+
+#browserframe {
+    height: 95%;
+    width: 97.5%;
+
+    border: none;
+    border-radius: 20px;
+}
+
+#browserholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#browsercontrols {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+}
+
+#url {
+    width: 350px;
+}
+
+#browserframe {
+    width: 99%;
+    height: 70vh;
+}
+
+/* Classes */
+.menu-panel {
+    position: relative;
+
+    background: var(--panel);
+
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    height: 80vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.menu-panel button {
+    height: 215px;
+    width: 215px;
+
+    background: var(--button);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.2);
+
+    border-radius: 25px;
+
+    font-size: 35px;
+    font-family: cursive;
+    font-weight: bold;
+
+    font-family: "Chango", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    color: var(--text);
+    -webkit-text-stroke: 3px var(--stroke);
+}
+
+.panel {
+    position: relative;
+
+    background: var(--panel);
+
+    height: 85vh;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.2);
+
+    margin-bottom: 20px;
+
+    gap: 35px;
+}
+
+.content-panel {
+    position: relative;
+
+    background: var(--panel);
+
+    height: 85vh;
+    border-radius: 15px;
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+
+    gap: 25px;
+
+    padding: 20px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    align-content: start;
+
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.settings-panel {
+    position: relative;
+
+    background: var(--panel);
+
+    height: 85vh;
+    border-radius: 15px;
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+
+    gap: 125px;
+
+    padding: 20px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    align-content: start;
+
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.chat-panel {
+    background: var(--panel);
+
+    height: 85vh;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+
+    display: grid;
+    place-items: center;
+
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.2);
+
+    margin-bottom: 5px;
+}
+
+.chango-regular {
+    font-family: "Chango", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    color: var(--text);
+    -webkit-text-stroke: 3px var(--stroke);
+}
+
+.page {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+
+    transition: 
+        opacity 0.4s ease,
+        transform 0.4s ease;
+}
+
+.page.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.page.exit {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.gamebutton {
+    background: var(--button);
+
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.2);
+
+    border-radius: 25px;
+
+    height: 125px;
+    width: 125px;
+
+    font-size: 35px;
+    font-family: cursive;
+    font-weight: bold;
+
+    overflow: hidden;
+
+    font-family: "Chango", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+
+    border-radius: 20px;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.icon-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 50%;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.6),
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+
+    pointer-events: none;
+}
+
+.gameicon {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+.menubtn {
+    transition: transform 0.15s ease;
+}
+
+.menubtn:hover {
+    transform: scale(1.05);
+}
+
+.btnfloat {
+    display: block;
+    animation: float-light 5s ease-in-out infinite;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -50px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
+
+    animation: rise linear forwards;
+}
+
+.scroll-panel {
+    position: relative;
+
+    background: var(--panel);
+
+    border-radius: 15px;
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+
+    gap: 25px;
+
+    padding: 20px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    align-content: start;
+
+    box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.5), 0 10px 25px rgba(0, 0, 0, 0.2);
+
+    width: 200px;
+    height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    font-family: sans-serif;
+}
+
+/* Animations */
+@keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes float-light {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes rise {
+    from {
+        transform: translateY(0);
+        opacity: 0.6;
+    }
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+/* Chat */
+#chatmenu {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#chatloginid, #chatloginkey, #chatusernameinput, #chatcontactinput, #chatgroupnameinput, #chatmessageinput {
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.85);
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #223;
+    outline: none;
+    min-width: 0;
+    box-sizing: border-box;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+#chatloginid:focus, #chatloginkey:focus, #chatusernameinput:focus, #chatcontactinput:focus, #chatgroupnameinput:focus, #chatmessageinput:focus {
+    border-color: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5), 0 0 14px var(--text);
+}
+
+#chatloginid, #chatloginkey {
+    margin: 6px;
+}
+
+#chatcontacts {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 18px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 80vh;
+    box-sizing: border-box;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.4), 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+#chatcontacts h3 {
+    font-size: 14px;
+    margin: 0;
+    text-align: left;
+    flex-shrink: 0;
+}
+
+#chatcontactsmenu {
+    width: 100%;
+    flex: 1 0 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: rgba(0, 0, 0, 0.12);
+    border: none;
+    border-radius: 14px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.chat-contact-btn {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--button);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-family: "Chango", sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(0, 0, 0, 0.15);
+    -webkit-text-stroke: 1px var(--stroke);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+}
+
+.chat-contact-btn:hover {
+    transform: translateX(4px) scale(1.02);
+    filter: brightness(1.12);
+}
+
+.chat-contact-btn:active {
+    transform: scale(0.97);
+}
+
+.chat-contact-btn.active {
+    background: linear-gradient(to bottom, #ffffff, var(--text));
+    border-color: #fff;
+    box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.8), 0 0 14px var(--text);
+}
+
+#chatusername, #chataddcontact, #chatcreategroup {
+    width: 100%;
+    padding: 10px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+#chatusername, #chataddcontact {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+#chatusername input, #chataddcontact input {
+    flex: 1;
+}
+
+#chatusername button, #chataddcontact button, #chatcreategroup button {
+    font-size: 14px;
+    -webkit-text-stroke: 0;
+    padding: 10px 14px;
+    flex-shrink: 0;
+}
+
+#chatcreategroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#chatgroupmembers {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 110px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+#chatgroupmembers:empty::before {
+    content: "Add contacts to make a group";
+    font-family: sans-serif;
+    font-size: 13px;
+    color: #335;
+    opacity: 0.7;
+}
+
+#chatgroupmembers label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 6px;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #123;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+#chatgroupmembers label:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+#chatgroupmembers input {
+    accent-color: var(--text);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+#chatstatus {
+    font-family: sans-serif;
+    font-size: 13px;
+    margin: 0;
+    min-height: 18px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+#chatstatus:empty {
+    padding: 4px 0;
+}
+
+#chatstatus[data-error="true"] {
+    background: rgba(255, 60, 60, 0.35);
+    color: #fff;
+}
+
+#chatstatus[data-error="false"]:not(:empty) {
+    background: rgba(40, 200, 90, 0.35);
+    color: #fff;
+}
+
+#chatsecretkey {
+    width: 100%;
+    padding: 8px;
+    font-family: monospace;
+    font-size: 16px;
+    letter-spacing: 3px;
+    -webkit-text-stroke: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+#chatuserid {
+    font-size: 14px;
+    margin: 0;
+    text-align: left;
+    flex-shrink: 0;
+    user-select: all;
+}
+
+#chatlogout {
+    font-size: 14px;
+    padding: 8px;
+    -webkit-text-stroke: 0;
+    flex-shrink: 0;
+}
+
+#chatmessages {
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 80vh;
+    box-sizing: border-box;
+    min-height: 0;
+    overflow: hidden;
+    box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.4), 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+#activechatheader {
+    font-family: "Chango", sans-serif;
+    font-size: 22px;
+    color: var(--text);
+    -webkit-text-stroke: 1px var(--stroke);
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    text-align: left;
+    flex-shrink: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#chatmessagehistory {
+    flex: 1;
+    min-height: 0;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 14px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+#chatcontactsmenu p, #chatmessagehistory p {
+    margin: auto;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #fff;
+    opacity: 0.85;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.chat-message-bubble {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 14px;
+    border-radius: 16px 16px 16px 4px;
+    max-width: 75%;
+    align-self: flex-start;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    word-break: break-word;
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-shrink: 0;
+}
+
+.chat-message-bubble.self {
+    align-self: flex-end;
+    border-radius: 16px 16px 4px 16px;
+    background: linear-gradient(to bottom, rgba(225, 248, 255, 0.98), rgba(170, 225, 255, 0.95));
+}
+
+.chat-message-bubble .msg-sender {
+    font-weight: bold;
+    font-size: 12px;
+    color: #0055ff;
+}
+
+.chat-message-bubble.self .msg-sender {
+    color: #008844;
+}
+
+#chatinputarea {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+#chatmessageinput {
+    flex: 1;
+    padding: 12px 16px;
+}
+
+#chatinputarea button {
+    font-size: 16px;
+    padding: 10px 20px;
+    -webkit-text-stroke: 0;
+    flex-shrink: 0;
+}
+
+#chatcontacts, #chatcontactsmenu, #chatgroupmembers, #chatmessagehistory {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.6) transparent;
+}
+
+#chatcontacts::-webkit-scrollbar, #chatcontactsmenu::-webkit-scrollbar, #chatgroupmembers::-webkit-scrollbar, #chatmessagehistory::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chatcontacts::-webkit-scrollbar-thumb, #chatcontactsmenu::-webkit-scrollbar-thumb, #chatgroupmembers::-webkit-scrollbar-thumb, #chatmessagehistory::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+}
+
+@media (max-width: 800px) {
+    #chatmenu {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+    }
+
+    #chatcontacts {
+        height: auto;
+        max-height: 70vh;
+    }
+
+    #chatmessages {
+        height: 75vh;
+    }
+}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Aero Games</title>
+        <link rel="icon" type="image/jpg" sizes="32x32" href="assets/sprites/favicon.png">
+        
+        <!-- CSS -->  
+        <link rel="stylesheet" href="style.css">
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
+    </head>
+    
+    <body>
+        <!-- Menu -->
+        <section class="page active" id="menu">
+            <h1 class="chango-regular">Aero Games</h1>
+
+            <div class="menu-panel">
+                <button class="menubtn" onclick=""><span class="btnfloat">Games [IN DEV]</span></button>
+                <button class="menubtn" onclick=""><span class="btnfloat">Apps [IN DEV]</span></button>
+                <button class="menubtn" onclick="swapPage('chat')"><span class="btnfloat">Chat</span></button>
+                <button class="menubtn" onclick="swapPage('settings')"><span class="btnfloat">Settings</span></button>
+            </div>
+        </section>
+
+        <!-- Games -->
+        <section class="page" id="games">
+            <div class="content-panel"></div>
+            <button onclick="swapPage('menu')">Back</button>
+        </section>
+
+        <!-- Apps -->
+        <section class="page" id="apps">
+            <div class="content-panel"></div>
+            <button onclick="swapPage('menu')">Back</button>
+        </section>
+
+        <!-- Chat -->
+        <section class="page" id="chat">
+            <div class="chat-panel">
+                <div id="chatsignup">
+                    <h2>Register for chat in a click of a button!</h2>
+                    <button id="chatregister" onclick="registerUser()">Register</button>
+
+                    <h2>OR</h2>
+
+                    <input id="chatloginid" type="text" maxlength="10" placeholder="Enter your User ID" autocomplete="off">
+                    <input id="chatloginkey" type="text" maxlength="8" placeholder="Enter your Secret Key" autocomplete="off">
+                    <button id="chatlogin" onclick="loginUser()">Log In</button>
+                </div>
+
+                <div id="chatmenu" style="display: none;">
+                    <div id="chatcontacts" class="content-panel">
+
+                        <div id="chatcontactsmenu" class="scroll-panel"></div>
+
+                        <div id="chatusername">
+                            <input id="chatusernameinput" type="text" maxlength="24" placeholder="Enter your desired username" autocomplete="off">
+                            <button type="button" onclick="changeUsername()">Change Username</button>
+                        </div>
+
+                        <div id="chataddcontact">
+                            <input id="chatcontactinput" type="text" maxlength="10" placeholder="Enter the contact's User ID" autocomplete="off">
+                            <button type="button" onclick="addContact()">Add Contact</button>
+                        </div>
+
+                        <div id="chatcreategroup">
+                            <input id="chatgroupnameinput" type="text" maxlength="24" placeholder="Group name" autocomplete="off">
+                            <div id="chatgroupmembers" class="scroll-panel"></div>
+                            <button type="button" onclick="createGroup()">Create Group</button>
+                        </div>
+
+                        <p id="chatstatus" role="status" aria-live="polite"></p>
+
+                        <h3>Your Secret Key</h3>
+                        <button type="button" id="chatsecretkey" onclick="toggleSecretKey()">••••••••</button>
+
+                        <h3 id="chatuserid">Loading...</h3>
+                        <button id="chatlogout" onclick="logoutUser()">Log Out</button>
+                    </div>
+
+                    <div id="chatmessages" class="content-panel">
+                        <div id="activechatheader">Select a contact to view messages</div>
+                        <div id="chatmessagehistory" class="scroll-panel"></div>
+                        <div id="chatinputarea" style="display: none;">
+                            <input id="chatmessageinput" type="text" placeholder="Type a message..." autocomplete="off">
+                            <button type="button" onclick="sendMessage()">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="swapPage('menu')">Back</button>
+        </section>
+
+        <!-- Settings -->
+        <section class="page" id="settings">
+            <div class="settings-panel">
+                <div>
+                    <h2 class="chango-regular" style="text-align: left;">Theme</h2>
+                    <select id="themeselector" onchange="setTheme()">
+                        <option value="aqua">Aqua</option>
+                        <option value="eco">Eco</option>
+                        <option value="dorfic">DORFic</option>
+                        <option value="dark">Dark</option>
+                        <option value="alba">Alba</option>
+                        <option value="clean">Clean</option>
+                        <option value="evil">Evil</option>
+                    </select>
+                </div>
+
+                <div>
+                    <h2 class="chango-regular" style="text-align: left;">Music</h2>
+                    <input type="checkbox" id="musictoggle" onchange="toggleMusic()">
+                </div>
+
+                <div>
+                    <h2 class="chango-regular" style="text-align: left;">SFX</h2>
+                    <input type="checkbox" id="sfxtoggle" onchange="toggleSfx()">
+                </div>
+
+                <div>
+                    <h2 class="chango-regular" style="text-align: left;">Shuffle Song</h2>
+                    <button onclick="shuffleSong()">Shuffle</button>
+                </div>
+            </div>
+
+            <button onclick="swapPage('menu')">Back</button>
+        </section>
+
+        <!-- Game/App View -->
+         <section class="page" id="view">
+            <div class="panel">
+                <iframe id="gameappframe"></iframe>
+            </div>
+
+            <button onclick="closeView()">Back</button>
+            <button onclick="toggleFullscreen('gameappframe')">Fullscreen</button>
+            <button onclick="openInAboutBlank()">Open in New Tab</button>
+         </section>
+
+        <!-- Other Stuff -->
+        <audio id="music">
+            <source id="musicsource" src="assets/audio/aquatic-ambience.mp3" type="audio/mpeg">
+            Your browser doesn't support audio.
+        </audio>
+
+        <div id="nowplaying"><h2>Now Playing: [SONG-NAME]</h2></div>
+        <div id="hovername"></div>
+
+        <div id="bubbles"></div>
+
+        <!-- JavaScript -->
+        <script src="script.js" defer></script>
+    </body>
+</html>
