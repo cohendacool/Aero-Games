@@ -895,33 +895,71 @@ async function sendMessage() {
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/Aero-Games/sw.js')
+        navigator.serviceWorker.register('sw.js')
             .then(reg => console.log('Service Worker registered!', reg))
             .catch(err => console.error('Service Worker registration failed:', err));
     });
 }
 
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/Aero-Games/sw.js', { scope: '/Aero-Games/' })
+            .then(reg => console.log('Service Worker registered successfully'))
+            .catch(err => console.error('Service Worker registration failed:', err));
+    });
+}
+
+function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+}
+
 async function toggleNotifications() {
     const checkbox = document.getElementById("notiftoggle");
-    
+    const userId = localStorage.getItem("aeroUserId");
+
+    if (!userId) {
+        alert("Log in to chat first.");
+        checkbox.checked = false;
+        return;
+    }
+
     if (checkbox.checked) {
         const permission = await Notification.requestPermission();
-        
         if (permission !== "granted") {
-            alert("Permission for notifications was denied.");
+            alert("Notification permission denied.");
             checkbox.checked = false;
             return;
         }
 
         try {
             const registration = await navigator.serviceWorker.ready;
-            console.log("Notifications enabled and ready.");
+            const publicVapidKey = "YOUR_PUBLIC_VAPID_KEY"; // Must match backend VAPID public key
+            
+            const subscription = await registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+            });
+
+            await fetch(`${chatApiBase}/user/${encodeURIComponent(userId)}/subscribe`, {
+                method: "POST",
+                headers: authHeaders({ "Content-Type": "application/json" }),
+                body: JSON.stringify({ subscription })
+            });
+
+            showChatStatus("Notifications enabled!");
         } catch (error) {
-            console.error("Error enabling notifications:", error);
+            console.error("Failed to subscribe to notifications:", error);
             checkbox.checked = false;
         }
     } else {
-        console.log("Notifications disabled.");
+        showChatStatus("Notifications disabled.");
     }
 }
 
