@@ -893,6 +893,39 @@ async function sendMessage() {
     }
 }
 
+// Register Service Worker on load
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('Service Worker registered!', reg))
+            .catch(err => console.error('Service Worker registration failed:', err));
+    });
+}
+
+async function toggleNotifications() {
+    const checkbox = document.getElementById("notiftoggle");
+    
+    if (checkbox.checked) {
+        const permission = await Notification.requestPermission();
+        
+        if (permission !== "granted") {
+            alert("Permission for notifications was denied.");
+            checkbox.checked = false;
+            return;
+        }
+
+        try {
+            const registration = await navigator.serviceWorker.ready;
+            console.log("Notifications enabled and ready.");
+        } catch (error) {
+            console.error("Error enabling notifications:", error);
+            checkbox.checked = false;
+        }
+    } else {
+        console.log("Notifications disabled.");
+    }
+}
+
 // Settings
 const settings = {
     theme: "aqua",
