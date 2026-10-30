@@ -295,7 +295,7 @@ function swapPage(newPageId) {
 }
 
 // Chat
-const chatApiBase = "https://d2fx6wovg15pqh.cloudfront.net";
+const chatApiBase = "https://alice-possibly-threats-examine.trycloudflare.com";
 let activeGroupId = null;
 
 function showChatStatus(message, isError = false) {
