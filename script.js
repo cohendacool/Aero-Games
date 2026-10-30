@@ -1061,3 +1061,7 @@ document.addEventListener('click', () => {
     const sfx = new Audio('assets/sfx/click.wav');
     sfx.play();
 });
+
+window.onbeforeunload = function(e) {
+    return 'You are about to leave Aero Games (possibly from GoGuardian). Do you wanna?';
+};
