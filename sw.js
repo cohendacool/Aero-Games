@@ -1,9 +1,9 @@
 self.addEventListener('push', function(event) {
     const data = event.data ? event.data.json() : {};
-    const title = data.title || "New Message on Aero Games";
+    const title = data.title || "Aero Games Chat";
     const options = {
-        body: data.body || "You have received a new message.",
-        icon: "assets/sprites/favicon.png"
+        body: data.body || "You have a new message.",
+        icon: "/Aero-Games/assets/sprites/favicon.png"
     };
 
     event.waitUntil(
@@ -14,6 +14,6 @@ self.addEventListener('push', function(event) {
 self.addEventListener('notificationclick', function(event) {
     event.notification.close();
     event.waitUntil(
-        clients.openWindow('/')
+        clients.openWindow('/Aero-Games/')
     );
 });
