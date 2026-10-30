@@ -76,6 +76,12 @@
 
                         <p id="chatstatus" role="status" aria-live="polite"></p>
 
+                        <div id="chatnotifications-toggle" style="margin: 10px 0;">
+                            <label class="chango-regular" style="font-size: 14px; cursor: pointer;">
+                                <input type="checkbox" id="notiftoggle" onchange="toggleNotifications()"> Toggle Notifications
+                            </label>
+                        </div>
+
                         <h3>Your Secret Key</h3>
                         <button type="button" id="chatsecretkey" onclick="toggleSecretKey()">••••••••</button>
 
