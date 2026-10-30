@@ -3,11 +3,23 @@ const cors = require("cors");
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
+const webpush = require("web-push");
 
 const app = express();
 const port = process.env.PORT || 3000;
 const usersFile = path.join(__dirname, "users.json");
 const groupsFile = path.join(__dirname, "groups.json");
+
+const vapidKeys = {
+    publicKey: "BEvssHZoxUIsTXfS_lPYOwfxDFe9rw1AeAv5CKfPX1KP3dz7yTZqQcLqCTcZnvhGux1QC8VtX5ip2XWZriAX6bw",
+    privateKey: "9qajdMhuP_U_0a_FCOj4S97xxeXVDaA0JRoiHhjNqaU"
+};
+
+webpush.setVapidDetails(
+    "mailto:your-email@example.com",
+    vapidKeys.publicKey,
+    vapidKeys.privateKey
+);
 
 app.use(cors());
 app.use(express.json());
@@ -314,6 +326,13 @@ app.post("/user/:userId/messages", (req, res) => {
     res.status(201).json({
         messages: user.messages[contactId]
     });
+
+    if (contact.pushSubscription) {
+        webpush.sendNotification(contact.pushSubscription, JSON.stringify({
+            title: `New message from ${user.username}`,
+            body: text
+        })).catchall(err => console.error("Push error:", err));
+    }
 });
 
 // Create a group chat
