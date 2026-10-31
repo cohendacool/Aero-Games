@@ -49,7 +49,7 @@
                     <h2>OR</h2>
 
                     <input id="chatloginid" type="text" maxlength="10" placeholder="Enter your User ID" autocomplete="off">
-                    <input id="chatloginkey" type="text" maxlength="8" placeholder="Enter your Secret Key" autocomplete="off">
+                    <input id="chatloginkey" type="password" maxlength="8" placeholder="Enter your Secret Key" autocomplete="off">
                     <button id="chatlogin" onclick="loginUser()">Log In</button>
                 </div>
 
@@ -82,8 +82,8 @@
                             </label>
                         </div>
 
-                        <h3>Your Secret Key</h3>
-                        <button type="button" id="chatsecretkey" onclick="toggleSecretKey()">••••••••</button>
+                        <h3 id="chatsecretkeyshow">Your Secret Key: ••••••••</h3>
+                        <button type="button" id="chatsecretkey" onclick="toggleSecretKey()">Toggle</button>
 
                         <h3 id="chatuserid">Loading...</h3>
                         <button id="chatlogout" onclick="logoutUser()">Log Out</button>
