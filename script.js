@@ -1115,8 +1115,6 @@ function saveSettings() {
 
 // Calls
 document.addEventListener("DOMContentLoaded", () => {
-    createGameButtons();
-    createAppButtons();
     loadSettings();
     loadUser();
 });
