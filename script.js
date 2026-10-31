@@ -311,6 +311,7 @@ function showChatMenu() {
     document.getElementById("chatsignup").style.display = "none";
     document.getElementById("chatmenu").style.display = "grid";
     startChatPolling();
+    syncNotificationToggle();
 }
 
 function startChatPolling() {
@@ -442,6 +443,8 @@ function logoutUser() {
     document.getElementById("chatmessagehistory").innerHTML = "";
     document.getElementById("activechatheader").textContent = "Select a contact to view messages";
     document.getElementById("chatinputarea").style.display = "none";
+
+    document.getElementById("notiftoggle").checked = false;
 
     const loginInput = document.getElementById("chatloginid");
     if (loginInput) {
@@ -893,6 +896,8 @@ async function sendMessage() {
     }
 }
 
+const publicVapidKey = "BEvssHZoxUIsTXfS_lPYOwfxDFe9rw1AeAv5CKfPX1KP3dz7yTZqQcLqCTcZnvhGux1QC8VtX5ip2XWZriAX6bw";
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
@@ -959,8 +964,21 @@ async function toggleNotifications() {
             checkbox.checked = false;
         }
     } else {
+        const registration = await navigator.serviceWorker.ready;
+        const subscription = await registration.pushManager.getSubscription();
+
+        await subscription.unsubscribe();
+
         showChatStatus("Notifications disabled.");
     }
+}
+
+async function syncNotificationToggle() {
+    const checkbox = document.getElementById("notiftoggle");
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.getSubscription();
+
+    checkbox.checked = subscription !== null && Notification.permission === "granted";
 }
 
 // Settings
