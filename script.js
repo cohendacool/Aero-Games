@@ -295,7 +295,7 @@ function swapPage(newPageId) {
 }
 
 // Chat
-const chatApiBase = "https://render-styles-stack-signatures.trycloudflare.com";
+const chatApiBase = "https://ranking-vegetable-scope-graph.trycloudflare.com";
 let activeGroupId = null;
 
 function showChatStatus(message, isError = false) {
