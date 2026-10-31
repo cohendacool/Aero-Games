@@ -900,14 +900,6 @@ const publicVapidKey = "BEvssHZoxUIsTXfS_lPYOwfxDFe9rw1AeAv5CKfPX1KP3dz7yTZqQcLq
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker registered!', reg))
-            .catch(err => console.error('Service Worker registration failed:', err));
-    });
-}
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
         navigator.serviceWorker.register('/Aero-Games/sw.js', { scope: '/Aero-Games/' })
             .then(reg => console.log('Service Worker registered successfully'))
             .catch(err => console.error('Service Worker registration failed:', err));
@@ -945,7 +937,6 @@ async function toggleNotifications() {
 
         try {
             const registration = await navigator.serviceWorker.ready;
-            const publicVapidKey = "YOUR_PUBLIC_VAPID_KEY"; // Must match backend VAPID public key
             
             const subscription = await registration.pushManager.subscribe({
                 userVisibleOnly: true,
