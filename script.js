@@ -596,8 +596,8 @@ function authHeaders(extra = {}) {
 }
 
 function renderSecretKey() {
-    const btn = document.getElementById("chatsecretkey");
-    btn.textContent = keyVisible ? currentUserData.secretKey : "••••••••";
+    const btn = document.getElementById("chatsecretkeyshow");
+    btn.textContent = keyVisible ? " Your Secret Key: " + currentUserData.secretKey : "Your Secret Key: ••••••••";
 }
 
 function toggleSecretKey() {
